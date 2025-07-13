@@ -1,8 +1,0 @@
-name: ugly-pet-comfyui
-description: Generate AI pet portraits in ugly sketch style using Flux Kontext and LoRA
-input:
-  image:
-    type: image
-    description: "Photo of the pet"
-output:
-  type: image

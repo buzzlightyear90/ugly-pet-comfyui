@@ -4,7 +4,7 @@ build:
   run:
     - git clone https://github.com/comfyanonymous/ComfyUI.git /workspace/ComfyUI
     - mkdir -p /workspace/ComfyUI/workflows /workspace/ComfyUI/loras
-    - cp -r workflows/* /workspace/ComfyUI/workflows/
-    - cp -r loras/* /workspace/ComfyUI/loras/
+    - cp -r /src/workflows/. /workspace/ComfyUI/workflows/
+    - cp -r /src/loras/. /workspace/ComfyUI/loras/
 
 predict: "predict.py:Predictor"

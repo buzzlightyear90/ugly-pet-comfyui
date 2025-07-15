@@ -3,6 +3,8 @@ build:
   python_requirements: requirements.txt
   run:
     - git clone https://github.com/comfyanonymous/ComfyUI.git /workspace/ComfyUI
-    - cp -r workflows loras /workspace/ComfyUI
+    - mkdir -p /workspace/ComfyUI/workflows /workspace/ComfyUI/loras
+    - cp -r workflows/* /workspace/ComfyUI/workflows/
+    - cp -r loras/* /workspace/ComfyUI/loras/
 
-predict: predict.py:Predictor
+predict: "predict.py:Predictor"

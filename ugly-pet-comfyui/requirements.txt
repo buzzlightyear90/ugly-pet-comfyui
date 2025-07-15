@@ -1,6 +1,2 @@
-torch
-opencv-python
-numpy
-pillow
-tqdm
+Pillow
 requests

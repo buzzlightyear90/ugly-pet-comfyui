@@ -1,55 +1,26 @@
 from cog import BasePredictor, Input, Path
 from PIL import Image
-import json, uuid, subprocess, os, glob, time
+import torch
+import os
+import sys
+sys.path.append("/workspace/ComfyUI")  # Path to ComfyUI repo
 
-# Default ComfyUI output directory inside the container.
-# Change if you configured a different folder in SaveImage.
-OUTPUT_DIR = "output"
+from execution import load_workflow_from_path_and_inputs
 
 class Predictor(BasePredictor):
-    def setup(self):
-        print("ComfyUI predictor ready 🚀")
-
     def predict(
         self,
-        image: Path = Input(description="Pet photo to be uglified"),
-        prompt: str = Input(
-            description="Prompt for the model",
-            default="Change the photo the dog into an ugly sketch of the same dog",
-        ),
+        input_image: Path = Input(description="Input image of the pet"),
     ) -> Path:
-        # 1️⃣ Save the uploaded photo to /tmp so the workflow can read it
-        input_filename = f"input_{uuid.uuid4().hex}.png"
-        input_path = f"/tmp/{input_filename}"
-        Image.open(image).convert("RGB").save(input_path)
+        # Load workflow
+        workflow_path = "workflows/Ugly_LoRa_Comfy_API_Workflow.json"
+        input_map = {
+            "input_image": str(input_image)
+        }
 
-        # 2️⃣ Load the base workflow and inject image + prompt
-        with open("workflows/Ugly_LoRa_Comfy_API_Workflow.json") as f:
-            wf = json.load(f)
+        output_path = load_workflow_from_path_and_inputs(workflow_path, input_map)
 
-        wf["142"]["inputs"]["image"] = input_path   # LoadImageOutput node
-        wf["6"]["inputs"]["text"]   = prompt        # CLIPTextEncode node
-
-        runtime_path = "/tmp/workflow_runtime.json"
-        with open(runtime_path, "w") as f:
-            json.dump(wf, f)
-
-        # 3️⃣ Run ComfyUI on the edited workflow
-        subprocess.run(
-            ["python", "main.py", "--workflow", runtime_path],
-            check=True,
-        )
-
-        # 4️⃣ Give the FS a moment, then pick the newest PNG ComfyUI saved
-        time.sleep(1)  # small buffer for I/O
-        pngs = sorted(
-            glob.glob(f"{OUTPUT_DIR}/**/*.png", recursive=True),
-            key=os.path.getmtime,
-            reverse=True,
-        )
-        if not pngs:
-            raise RuntimeError("ComfyUI produced no PNG outputs.")
-
-        newest = pngs[0]
-        print("Returning image:", newest)
-        return Path(newest)
+        # Find the most recent PNG output
+        from glob import glob
+        images = sorted(glob("/workspace/ComfyUI/output/*.png"), key=os.path.getmtime, reverse=True)
+        return Path(images[0])

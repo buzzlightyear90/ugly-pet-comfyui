@@ -1,15 +1,18 @@
 {
   "6": {
+    "class_type": "LoadLoRA",
     "inputs": {
-      "text": "Change the photo the dog into an ugly sketch of the same dog",
-      "clip": [
-        "38",
+      "model": [
+        "6",
         0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
+      ],
+      "clip": [
+        "6",
+        1
+      ],
+      "lora_name": "ugly.safetensors",
+      "strength_model": 1.0,
+      "strength_clip": 1.0
     }
   },
   "35": {
@@ -86,12 +89,12 @@
   },
   "142": {
     "inputs": {
-      "image": "input_image",
+      "image": "photo-1633722715463-d30f4f325e24.jpeg [output]",
       "refresh": "refresh"
     },
     "class_type": "LoadImageOutput",
     "_meta": {
-      "title": "Load Image"
+      "title": "Load Image (from Outputs)"
     }
   },
   "177": {

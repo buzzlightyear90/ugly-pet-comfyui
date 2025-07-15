@@ -1,16 +1,10 @@
 build:
   python_version: "3.10"
   system_packages:
-    - "git"
-    - "wget"
     - "libgl1-mesa-glx"
+    - "libglib2.0-0"
   python_packages:
-    - torch
-    - opencv-python
-    - numpy
-    - pillow
-    - tqdm
-    - requests
+    - "Pillow"
+    - "cog==0.15.10"
 
 predict: "predict.py:Predictor"
-gpu: true

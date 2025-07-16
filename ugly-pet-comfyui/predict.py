@@ -10,13 +10,13 @@ from execution import load_workflow_from_path_and_inputs
 class Predictor(BasePredictor):
     def predict(
         self,
-        input_image: Path = Input(description="Input image of the pet"),
+        image: Path = Input(description="Input image of the pet"),
         prompt: str = Input(description="Prompt to apply", default="Change the photo the dog into an ugly sketch of the same dog")
     ) -> Path:
         workflow_path = "workflows/Ugly_LoRa_Comfy_API_Workflow.json"
         
         input_map = {
-            "input_image": str(input_image),
+            "image": str(input_image),
             "text": prompt
         }
 

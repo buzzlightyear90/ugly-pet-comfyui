@@ -1,4 +1,4 @@
 version: "1"
-predict: predict.py
 build: Dockerfile
+predict: predict.py
 gpu: true

@@ -1,2 +1,5 @@
+comfyui>=2.4.0
+torch>=2.1.0
+safetensors
 Pillow
-requests
+numpy

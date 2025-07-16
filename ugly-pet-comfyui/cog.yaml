@@ -1,0 +1,15 @@
+# cog.yaml
+build:
+  python_version: "3.10"
+
+dependencies:
+  - git+https://github.com/comfyanonymous/ComfyUI.git@main#egg=comfyui
+  - torch>=2.1.0
+  - safetensors
+  - pillow
+  - numpy
+
+predictor:
+  type: python
+  path: predict.py
+  gpu: true

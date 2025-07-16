@@ -1,26 +1,22 @@
-from cog import BasePredictor, Input, Path
-from PIL import Image
-import torch
-import os
-import sys
-sys.path.append("/workspace/ComfyUI")  # Path to ComfyUI repo
+import comfyui
+from comfyui import Workflow
 
-from execution import load_workflow_from_path_and_inputs
+# load your exported JSON
+wf = Workflow.load("my_workflow.json")
 
-class Predictor(BasePredictor):
-    def predict(
-        self,
-        input_image: Path = Input(description="Input image of the pet"),
-    ) -> Path:
-        # Load workflow
-        workflow_path = "workflows/Ugly_LoRa_Comfy_API_Workflow.json"
-        input_map = {
-            "input_image": str(input_image)
-        }
+# load your LoRA weights
+wf.load_lora("my_lora.safetensors")
 
-        output_path = load_workflow_from_path_and_inputs(workflow_path, input_map)
-
-        # Find the most recent PNG output
-        from glob import glob
-        images = sorted(glob("/workspace/ComfyUI/output/*.png"), key=os.path.getmtime, reverse=True)
-        return Path(images[0])
+def predict(prompt: str, negative_prompt: str = "", height: int = 512, width: int = 512):
+    # set your nodes’ inputs
+    wf.set_input("TextEncode/Prompt", prompt)
+    wf.set_input("TextEncode/NegativePrompt", negative_prompt)
+    wf.set_input("ImageSize", (width, height))
+    # run
+    outputs = wf.run()
+    # extract image from the node you want:
+    image = outputs["SaveImage/output"]
+    # return as PNG bytes
+    buf = io.BytesIO()
+    image.save(buf, format="PNG")
+    return buf.getvalue()

@@ -1,7 +1,7 @@
 {
   "6": {
     "inputs": {
-      "text": "Change the photo the dog into an ugly sketch of the same dog",
+      "text": "text",
       "clip": [
         "38",
         0
@@ -86,12 +86,12 @@
   },
   "142": {
     "inputs": {
-      "image": "photo-1633722715463-d30f4f325e24.jpeg [output]",
+      "image": "input_image",
       "refresh": "refresh"
     },
     "class_type": "LoadImageOutput",
     "_meta": {
-      "title": "Load Image (from Outputs)"
+      "title": "Load Image"
     }
   },
   "177": {

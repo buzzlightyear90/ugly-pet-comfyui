@@ -86,12 +86,12 @@
   },
   "142": {
     "inputs": {
-      "image": "input_image",
+      "image": "photo-1633722715463-d30f4f325e24.jpeg [output]",
       "refresh": "refresh"
     },
     "class_type": "LoadImageOutput",
     "_meta": {
-      "title": "Load Image"
+      "title": "Load Image (from Outputs)"
     }
   },
   "177": {

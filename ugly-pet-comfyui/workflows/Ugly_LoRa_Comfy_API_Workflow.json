@@ -86,7 +86,7 @@
   },
   "142": {
     "inputs": {
-      "image": "input_image",
+      "image": "image",
       "refresh": "refresh"
     },
     "class_type": "LoadImageOutput",
@@ -132,7 +132,7 @@
     "inputs": {
       "scheduler": "simple",
       "steps": 20,
-      "denoise": 1,
+      "denoise": 0.5,
       "model": [
         "217",
         0
@@ -162,7 +162,7 @@
         0
       ],
       "latent_image": [
-        "240",
+        "124",
         0
       ]
     },
@@ -452,7 +452,7 @@
         0
       ],
       "latent_image": [
-        "240",
+        "124",
         0
       ]
     },
@@ -465,7 +465,7 @@
     "inputs": {
       "scheduler": "simple",
       "steps": 20,
-      "denoise": 1,
+      "denoise": 0.5,
       "model": [
         "37",
         0
@@ -474,43 +474,6 @@
     "class_type": "BasicScheduler",
     "_meta": {
       "title": "BasicScheduler"
-    }
-  },
-  "249": {
-    "inputs": {
-      "inputcount": 3,
-      "direction": "right",
-      "match_image_size": true,
-      "Update inputs": null,
-      "image_1": [
-        "238",
-        0
-      ],
-      "image_2": [
-        "243",
-        0
-      ],
-      "image_3": [
-        "199",
-        0
-      ]
-    },
-    "class_type": "ImageConcatMulti",
-    "_meta": {
-      "title": "Image Concatenate Multi"
-    }
-  },
-  "250": {
-    "inputs": {
-      "filename_prefix": "ComfyUI",
-      "images": [
-        "249",
-        0
-      ]
-    },
-    "class_type": "SaveImage",
-    "_meta": {
-      "title": "Save Image"
     }
   }
 }

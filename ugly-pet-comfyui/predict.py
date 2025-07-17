@@ -1,5 +1,6 @@
 from cog import BasePredictor, Input, Path
 from PIL import Image
+from glob import glob
 import torch
 import os
 import sys
@@ -16,11 +17,11 @@ class Predictor(BasePredictor):
         workflow_path = "workflows/Ugly_LoRa_Comfy_API_Workflow.json"
         
         input_map = {
-            "image": str(input_image),
+            "input_image": str(image),
             "text": prompt
         }
 
         output_path = load_workflow_from_path_and_inputs(workflow_path, input_map)
 
-        images = sorted(glob("/workspace/ComfyUI/output/*.png"), key=os.path.getmtime, reverse=True)
+        images = sorted(glob("/workspace/ComfyUI/output/Kontext_Stage1*.png"),key=os.path.getmtime, reverse=True)
         return Path(images[0])
